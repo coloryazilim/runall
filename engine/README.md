@@ -43,6 +43,7 @@ $ pm2 start process.json
 
 ###### Development
 ```
+$ export PORT=5858;
 $ export MONGOLAB_URI='mongodb://localhost:27017/tone';
 $ node server.js
 ```
