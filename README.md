@@ -11,7 +11,8 @@ $ meteor npm install prerender-node
 $ meteor npm install
 ```
 
-add /server/ file.
+`server/tone.js` file.
+
 ``` js
 import prerenderIO from 'prerender-node';
 
