@@ -1,5 +1,5 @@
 {
-  "name"                 : "tone",
+  "name"                 : "tone-engine",
   "script"               : "server.js",
   "watch"                : true,
   "exec_interpreter"     : "/usr/local/n/versions/node/6.11.0/bin/node",
@@ -7,6 +7,6 @@
     "PRERENDER_NUM_WORKERS"    : 1,
     "PRERENDER_NUM_ITERATIONS" : 100,
     "MONGOLAB_URI"             : "mongodb://localhost:27017/tone",
-    "PORT"                     : "34678"
+    "PORT"                     : 5858
   }
 }
