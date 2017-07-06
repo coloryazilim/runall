@@ -1,7 +1,12 @@
 Tone Engine
 
-###### pm2
-* [prerender-java](https://github.com/greengerong/prerender-java)
+###### PM2
+```
+$ pm2 start process.json
+```
 
-###### Go
-* [goprerender](https://github.com/tampajohn/goprerender)
+###### Development
+```
+$ export MONGOLAB_URI='mongodb://localhost:27017/tone';
+$ node server.js
+```
