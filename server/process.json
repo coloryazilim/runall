@@ -1,0 +1,13 @@
+{
+  "name"                 : "service_prerender",
+  "script"               : "server.js",
+  "watch"                : true,
+  "exec_interpreter"     : "/usr/local/n/versions/node/6.11.0/bin/node",
+  "env": {
+    "PRERENDER_SERVICE_URL" : "https://prerender.coloryazilim.com",
+    "PRERENDER_NUM_WORKERS" : 1,
+    "PRERENDER_NUM_ITERATIONS": 200,
+    "MONGOLAB_URI"          : "mongodb://localhost:27017/prerender",
+    "PORT"                  : "34678"
+  }
+}
