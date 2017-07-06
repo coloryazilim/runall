@@ -43,3 +43,22 @@ Template.caches.helpers({
     }
   }
 });
+
+Template.histories.helpers({
+  histories() {
+    return Histories.find({ });
+  },
+
+  settings() {
+    return {
+      rowsPerPage: 10,
+      showNavigation: 'never',
+      showFilter: false,
+      fields: [
+        { key: 'statusCode', label: 'Status' },
+        { key: 'ms', label: 'Response Time (sec)' },
+        { key: 'url', label: 'URL' }
+      ]
+    }
+  }
+});

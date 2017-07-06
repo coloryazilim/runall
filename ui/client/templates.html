@@ -3,9 +3,13 @@
 </head>
 
 <template name="layout">
-  <a href="{{ pathFor route='Sites' }}">Sites</a>
-  <a href="{{ pathFor route='Caches' }}">Caches</a>
-  {{ > yield }}
+  <div>
+    <a href="{{ pathFor route='Sites' }}">Sites</a>
+    <a href="{{ pathFor route='Histories' }}">Histories</a>
+  </div>
+  <div>
+    {{ > yield }}
+  </div>
 </template>
 
 <template name="home">
@@ -28,6 +32,14 @@
 
 <template name="caches">
   {{> reactiveTable collection=caches settings=settings }}
+</template>
+
+<template name="histories">
+  {{# if Template.subscriptionsReady }}
+    {{> reactiveTable collection=histories settings=settings }}
+  {{ else }}
+    {{ > loading }}
+  {{/if}}
 </template>
 
 <template name="notFound">

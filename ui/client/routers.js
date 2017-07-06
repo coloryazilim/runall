@@ -10,6 +10,6 @@ Router.route('/sites/:_id', {
   name: 'Site'
 });
 
-Router.route('/caches', {
-  name: 'Caches'
+Router.route('/histories', {
+  name: 'Histories'
 });

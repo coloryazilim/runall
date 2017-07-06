@@ -1,8 +1,10 @@
-var phridge = require('phridge')
-  , _ = require('lodash')
-  , util = require('./util.js')
-  , zlib = require('zlib')
-  , blockedResources = require('./resources/blocked-resources.json');
+var phridge = require('phridge'),
+    _ = require('lodash'),
+    util = require('./util.js'),
+    zlib = require('zlib'),
+    blockedResources = require('./resources/blocked-resources.json'),
+    mongodb = require('mongodb'),
+    MongoClient = require('mongodb').MongoClient;
 
 var COOKIES_ENABLED = process.env.COOKIES_ENABLED || false;
 
@@ -23,6 +25,8 @@ var EVALUATE_JAVASCRIPT_CHECK_TIMEOUT = process.env.EVALUATE_JAVASCRIPT_CHECK_TI
 var NUM_ITERATIONS = process.env.NUM_ITERATIONS || 40;
 
 var NUM_SOFT_ITERATIONS = process.env.NUM_SOFT_ITERATIONS || 30;
+
+const mongo = MongoClient.connect(process.env.MONGOLAB_URI);
 
 var server = exports = module.exports = {};
 
@@ -583,6 +587,19 @@ server._sendResponse = function(req, res, options) {
 
     var ms = new Date().getTime() - req.prerender.start.getTime();
     util.log('got', req.prerender.statusCode, 'in', ms + 'ms', 'for', req.prerender.url);
+
+    console.log({
+
+    });
+
+    mongo.then((db) => {
+      return db.collection('histories').insert({
+        siteId: req.headers['x-prerender-token'],
+        url: req.prerender.url,
+        statusCode: req.prerender.statusCode,
+        ms: ms
+      });
+    });
 
     if(this.shouldKillPhantomJS(req) || (options && options.abort)) {
         req.prerender.isPageClosed = true;

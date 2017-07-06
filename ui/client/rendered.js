@@ -10,3 +10,7 @@ Template.site.onCreated(function() {
 Template.caches.onCreated(function() {
   this.subscribe('caches', this.data.siteId);
 });
+
+Template.histories.onCreated(function() {
+  this.subscribe('histories');
+});
