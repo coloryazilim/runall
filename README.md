@@ -30,3 +30,5 @@ Meteor.startup(() => {
 $ export PRERENDER_SERVICE_URL='localhost:5858'
 $ meteor --port 5555
 ```
+
+go to `http://localhost:5555?_escaped_fragment_=`
