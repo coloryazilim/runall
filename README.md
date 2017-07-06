@@ -28,5 +28,6 @@ Meteor.startup(() => {
 #### Start app
 ```
 $ export PRERENDER_SERVICE_URL='localhost:5858'
+$ export PORT=5555 
 $ meteor
 ```
