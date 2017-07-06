@@ -24,3 +24,9 @@ Meteor.startup(() => {
   WebApp.rawConnectHandlers.use(prerenderIO);
 });
 ```
+
+#### Start app
+```
+$ export PRERENDER_SERVICE_URL='localhost:5858'
+$ meteor
+```
