@@ -30,6 +30,7 @@ module.exports = {
         url: req.prerender.url,
         siteId: req.headers['x-prerender-token'],
         start: req.prerender.start,
+        ms: new Date().getTime() - req.prerender.start.getTime(),
         phantomId: req.prerender.phantomId,
         stage: req.prerender.stage,
         pendingRequests: req.prerender.pendingRequests,
@@ -43,7 +44,7 @@ module.exports = {
         downloadFinished: req.prerender.downloadFinished,
         timeoutChecker: req.prerender.timeoutChecker,
         documentHTML: req.prerender.documentHTML,
-        lastJavascriptExecution: req.prerender.lastJavascriptExecution
+        lastJavascriptExecution: req.prerender.lastJavascriptExecution,
       });
 
       // nexted.

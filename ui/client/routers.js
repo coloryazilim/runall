@@ -1,15 +1,19 @@
 Router.route('/', {
-  name: 'Home'
+  name: 'Home',
+  layoutTemplate: 'authLayout'
 });
 
 Router.route('/sites', {
-  name: 'Sites'
+  name: 'Sites',
+  layoutTemplate: 'authLayout'
 });
 
 Router.route('/sites/:_id', {
-  name: 'Site'
+  name: 'Site',
+  layoutTemplate: 'authLayout'
 });
 
 Router.route('/histories', {
-  name: 'Histories'
+  name: 'Histories',
+  layoutTemplate: 'authLayout'
 });

@@ -35,6 +35,7 @@ Template.caches.helpers({
       showFilter: false,
       fields: [
         { key: 'url', label: 'Cache Url' },
+        { key: 'ms', label: 'Response Time (sec)' },
         { key: 'status', label: 'Status' },
         { key: 'statusCode', label: 'Status Code' },
         { key: 'downloadStarted', label: 'Start' },
@@ -57,7 +58,9 @@ Template.histories.helpers({
       fields: [
         { key: 'statusCode', label: 'Status' },
         { key: 'ms', label: 'Response Time (sec)' },
-        { key: 'url', label: 'URL' }
+        { key: 'url', label: 'Url' },
+        { key: 'userAgent', label: 'User Agent' }
+
       ]
     }
   }

@@ -588,13 +588,11 @@ server._sendResponse = function(req, res, options) {
     var ms = new Date().getTime() - req.prerender.start.getTime();
     util.log('got', req.prerender.statusCode, 'in', ms + 'ms', 'for', req.prerender.url);
 
-    console.log({
-
-    });
-
+    // MONGO INSERT
     mongo.then((db) => {
       return db.collection('histories').insert({
         siteId: req.headers['x-prerender-token'],
+        userAgent: req.headers['user-agent'],
         url: req.prerender.url,
         statusCode: req.prerender.statusCode,
         ms: ms
