@@ -3,7 +3,7 @@ Caches = new Mongo.Collection('caches');
 Caches.attachBehaviour('timestampable');
 
 Caches.attachSchema(new SimpleSchema({
-  token: { type: String, label: 'Token' },
+  siteId: { type: String, label: 'Site Id' },
   url: { type: String, label: 'Url' },
   start: { type: Date, label: 'Started At' },
   phantomId: { type: String, label: 'Phantom Id' },

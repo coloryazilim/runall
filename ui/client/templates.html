@@ -1,0 +1,39 @@
+<head>
+  <title>tone</title>
+</head>
+
+<template name="layout">
+  <a href="{{ pathFor route='Sites' }}">Sites</a>
+  <a href="{{ pathFor route='Caches' }}">Caches</a>
+  {{ > yield }}
+</template>
+
+<template name="home">
+  Home
+</template>
+
+<template name="sites">
+  {{> reactiveTable collection=sites settings=settings }}
+  {{> quickForm collection="Sites" id="insertSiteForm" type="insert" }}
+</template>
+
+<template name="site">
+  {{# if Template.subscriptionsReady }}
+    {{> quickForm collection="Sites" id="updateSiteForm" type="update" doc=site }}
+    {{ > caches siteId=site._id }}
+  {{ else }}
+    {{ > loading }}
+  {{/if}}
+</template>
+
+<template name="caches">
+  {{> reactiveTable collection=caches settings=settings }}
+</template>
+
+<template name="notFound">
+  Not found page.
+</template>
+
+<template name="loading">
+  loading...
+</template>

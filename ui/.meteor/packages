@@ -38,3 +38,8 @@ momentjs:moment
 rzymek:moment-locale-tr
 tmeasday:publish-counts
 copleykj:livestamp
+useraccounts:iron-routing
+useraccounts:core
+useraccounts:bootstrap
+accounts-password
+twbs:bootstrap

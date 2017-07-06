@@ -27,23 +27,23 @@ module.exports = {
 
     afterPhantomRequest(req, res, next) {
       this.cache.set({
-        token: req.headers['x-prerender-token'], // string
-        url: req.prerender.url, // sting
-        start: req.prerender.start, // Date
-        phantomId: req.prerender.phantomId, // String
-        stage: req.prerender.stage, // Number
-        pendingRequests: req.prerender.pendingRequests, // Number
-        lastResourceReceived: req.prerender.lastResourceReceived, // date
-        downloadStarted: req.prerender.downloadStarted, // date
-        downloadChecker: req.prerender.downloadChecker, // date
-        headers: req.prerender.headers, // list<Array>
-        statusCode: req.prerender.statusCode, // Number
-        redirectURL: req.prerender.redirectURL, // String
-        status: req.prerender.status, // string
-        downloadFinished: req.prerender.downloadFinished, // date
-        timeoutChecker: req.prerender.timeoutChecker, // Number
-        documentHTML: req.prerender.documentHTML, // String
-        lastJavascriptExecution: req.prerender.lastJavascriptExecution // date
+        url: req.prerender.url,
+        siteId: req.headers['x-prerender-token'],
+        start: req.prerender.start,
+        phantomId: req.prerender.phantomId,
+        stage: req.prerender.stage,
+        pendingRequests: req.prerender.pendingRequests,
+        lastResourceReceived: req.prerender.lastResourceReceived,
+        downloadStarted: req.prerender.downloadStarted,
+        downloadChecker: req.prerender.downloadChecker,
+        headers: req.prerender.headers,
+        statusCode: req.prerender.statusCode,
+        redirectURL: req.prerender.redirectURL,
+        status: req.prerender.status,
+        downloadFinished: req.prerender.downloadFinished,
+        timeoutChecker: req.prerender.timeoutChecker,
+        documentHTML: req.prerender.documentHTML,
+        lastJavascriptExecution: req.prerender.lastJavascriptExecution
       });
 
       // nexted.
@@ -66,16 +66,10 @@ var mongo_cache = {
 
     set(data, callback) {
       mongo.then((db) => {
-        db.collection('sites').findOne({ url: data.url }).then((site) => {
-
-          // website found then
+        db.collection('sites').findOne({ _id: data.siteId }).then((site) => {
           if (site) {
-
-            // and cache active then.
             if (site.cache) {
-              db.collection('caches').update({ url: data.url }, data, { upsert: true }).then(() => {
-
-              });
+              return db.collection('caches').update({ url: data.url }, data, { upsert: true });
             }
           }
         });
