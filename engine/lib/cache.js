@@ -1,62 +1,84 @@
-var mongo = require('mongodb');
+var mongodb = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
-
-var mongoUri = process.env.MONGOLAB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://localhost/prerender';
-
-var database;
-
-MongoClient.connect(mongoUri, function(err, db) {
-    database = db;
-});
-
 var cache_manager = require('cache-manager');
 
+const mongo = MongoClient.connect(process.env.MONGOLAB_URI);
+
 module.exports = {
-    init: function() {
-        this.cache = cache_manager.caching({
-            store: mongo_cache
-        });
+    init() {
+      this.cache = cache_manager.caching({
+        store: mongo_cache
+      });
     },
 
-    beforePhantomRequest: function(req, res, next) {
-        if(req.method !== 'GET') {
-            return next();
+    beforePhantomRequest(req, res, next) {
+      if(req.method !== 'GET') {
+        return next();
+      }
+
+      this.cache.get(req.prerender.url, (err, result) => {
+        if (!err && result) {
+          return res.send(200, result);
         }
 
-        this.cache.get(req.url, function (err, result) {
-            if (!err && result) {
-                res.send(200, result);
-            } else {
-                next();
-            }
-        });
+        return next();
+      });
     },
 
-    afterPhantomRequest: function(req, res, next) {
-        this.cache.set(req.url, req.prerender.documentHTML);
-        next();
+    afterPhantomRequest(req, res, next) {
+      this.cache.set({
+        token: req.headers['x-prerender-token'], // string
+        url: req.prerender.url, // sting
+        start: req.prerender.start, // Date
+        phantomId: req.prerender.phantomId, // String
+        stage: req.prerender.stage, // Number
+        pendingRequests: req.prerender.pendingRequests, // Number
+        lastResourceReceived: req.prerender.lastResourceReceived, // date
+        downloadStarted: req.prerender.downloadStarted, // date
+        downloadChecker: req.prerender.downloadChecker, // date
+        headers: req.prerender.headers, // list<Array>
+        statusCode: req.prerender.statusCode, // Number
+        redirectURL: req.prerender.redirectURL, // String
+        status: req.prerender.status, // string
+        downloadFinished: req.prerender.downloadFinished, // date
+        timeoutChecker: req.prerender.timeoutChecker, // Number
+        documentHTML: req.prerender.documentHTML, // String
+        lastJavascriptExecution: req.prerender.lastJavascriptExecution // date
+      });
+
+      // nexted.
+      next();
     }
 };
 
-
 var mongo_cache = {
-    get: function(key, callback) {
-        database.collection('pages', function(err, collection) {
-            collection.findOne({key: key}, function (err, item) {
-                var value = item ? item.value : null;
-                callback(err, value);
-            });
+    get(url, callback) {
+      mongo.then((db) => {
+        db.collection('caches').findOne({ url }).then((doc) => {
+          if (doc) {
+            return callback(null, doc.documentHTML);
+          }
+
+          callback(true, null);
         });
+      });
     },
-    set: function(key, value, callback) {
-        database.collection('pages', function(err, collection) {
-            var object = {key: key, value: value, created: new Date()};
-            collection.update({key: key}, object, {
-                    upsert: true
-                }, function (err) {
-            });
+
+    set(data, callback) {
+      mongo.then((db) => {
+        db.collection('sites').findOne({ url: data.url }).then((site) => {
+
+          // website found then
+          if (site) {
+
+            // and cache active then.
+            if (site.cache) {
+              db.collection('caches').update({ url: data.url }, data, { upsert: true }).then(() => {
+
+              });
+            }
+          }
         });
+      });
     }
 };
