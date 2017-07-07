@@ -4,6 +4,7 @@
   "watch"                : true,
   "exec_interpreter"     : "/usr/local/n/versions/node/6.11.0/bin/node",
   "env": {
+    "ROOT_URL"                 : "https://tone-engine.coloryazilim.com",
     "PRERENDER_NUM_WORKERS"    : 1,
     "PRERENDER_NUM_ITERATIONS" : 100,
     "MONGOLAB_URI"             : "mongodb://localhost:27017/tone",

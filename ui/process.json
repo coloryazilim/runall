@@ -5,9 +5,8 @@
   "watch"                : true,
   "exec_interpreter"     : "/usr/local/n/versions/node/4.8.1/bin/node",
   "env": {
-    "ROOT_URL"             : "http://localhost:3000",
+    "ROOT_URL"             : "https://tone.coloryazilim.com",
     "MONGO_URL"            : "mongodb://localhost:27017/tone",
-    "PRERENDER_SERVICE_URL": "http://localhost:5858",
-    "PORT"                 : "34566"
+    "PORT"                 : "5959"
   }
 }
