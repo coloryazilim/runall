@@ -29,7 +29,7 @@ module.exports = {
       this.cache.set({
         url: req.prerender.url,
         siteId: req.headers['x-prerender-token'],
-        start: req.prerender.start,
+        createdAt: req.prerender.start,
         ms: new Date().getTime() - req.prerender.start.getTime(),
         phantomId: req.prerender.phantomId,
         stage: req.prerender.stage,

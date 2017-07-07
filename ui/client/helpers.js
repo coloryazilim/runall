@@ -5,12 +5,13 @@ Template.sites.helpers({
 
   settings() {
     return {
-      rowsPerPage: 10,
-      showNavigation: 'never',
+      rowsPerPage: 1000,
+      // showNavigation: 'never',
       showFilter: false,
       fields: [
-        { key: '_id', label: 'ID' },
-        { key: 'url', label: 'URL' }
+        { key: '_id', label: 'TOKEN' },
+        { key: 'domain', label: 'Domain' },
+        { key: 'cache', label: 'Cache Enabled ?' }
       ]
     }
   }
@@ -30,14 +31,20 @@ Template.caches.helpers({
 
   settings() {
     return {
-      rowsPerPage: 10,
-      showNavigation: 'never',
+      rowsPerPage: 100,
+      // showNavigation: 'never',
       showFilter: false,
       fields: [
-        { key: 'url', label: 'Cache Url' },
-        { key: 'ms', label: 'Response Time (sec)' },
         { key: 'status', label: 'Status' },
-        { key: 'statusCode', label: 'Status Code' },
+        { key: 'start', label: 'Time', tmpl: Template.livestampTmpl },
+        { key: 'url', label: 'Cache Url' },
+        {
+          key: 'ms',
+          label: 'Response Time (sec)',
+          fn(ms) {
+            return Utils.getFormattedMs(ms);
+          }
+        },
         { key: 'downloadStarted', label: 'Start' },
         { key: 'downloadFinished', label: 'End' }
       ]
@@ -52,15 +59,21 @@ Template.histories.helpers({
 
   settings() {
     return {
-      rowsPerPage: 10,
-      showNavigation: 'never',
+      rowsPerPage: 100,
+      // showNavigation: 'never',
       showFilter: false,
       fields: [
         { key: 'statusCode', label: 'Status' },
-        { key: 'ms', label: 'Response Time (sec)' },
+        { key: 'createdAt', label: 'Time', tmpl: Template.livestampTmpl },
+        {
+          key: 'ms',
+          label: 'Response Time (sec)',
+          fn(ms) {
+            return Utils.getFormattedMs(ms);
+          }
+        },
         { key: 'url', label: 'Url' },
-        { key: 'userAgent', label: 'User Agent' }
-
+        { key: 'requestBy', label: 'Request By' }
       ]
     }
   }

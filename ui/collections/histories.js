@@ -1,3 +1,5 @@
+import parseAgent from 'ua-parser-js';
+
 Histories = new Mongo.Collection('histories');
 
 Histories.attachBehaviour('timestampable');
@@ -10,4 +12,12 @@ Histories.attachSchema(new SimpleSchema({
   ms: { type: Number, label: 'Response Time (sec)' }
 }));
 
-Histories.helpers({});
+Histories.helpers({
+  parseAgent() {
+    return parseAgent(this.userAgent);
+  },
+
+  requestBy() {
+    return Utils.bot(this.userAgent);
+  }
+});
