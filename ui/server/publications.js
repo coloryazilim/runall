@@ -1,21 +1,21 @@
-Meteor.publish('sites', function() {
-  return Sites.find({
+Meteor.publish('applications', function() {
+  return Applications.find({
     userId: this.userId
   });
 });
 
-Meteor.publish('site', function(_id) {
-  return Sites.find({ _id, userId: this.userId });
+Meteor.publish('application', function(_id) {
+  return Applications.find({ _id, userId: this.userId });
 });
 
-Meteor.publish('caches', function(siteId) {
-  return Caches.find({ siteId });
+Meteor.publish('caches', function(applicationId) {
+  return Caches.find({ applicationId });
 });
 
 Meteor.publish('histories', function() {
-  const _ids = Sites.find({ userId: this.userId }).map((h) => h._id);
+  const _ids = Applications.find({ userId: this.userId }).map((h) => h._id);
   return Histories.find({
-    siteId: {
+    applicationId: {
       $in: _ids
     }
   });

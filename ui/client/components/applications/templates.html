@@ -1,0 +1,13 @@
+<template name="applications">
+  {{> reactiveTable collection=applications settings=settings }}
+  {{> quickForm collection="Applications" id="insertApplicationForm" type="insert" }}
+</template>
+
+<template name="application">
+  {{# if Template.subscriptionsReady }}
+    {{> quickForm collection="Applications" id="updateApplicationForm" type="update" doc=application }}
+    {{ > caches applicationId=application._id }}
+  {{ else }}
+    {{ > loading }}
+  {{/if}}
+</template>

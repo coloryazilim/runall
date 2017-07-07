@@ -1,0 +1,103 @@
+<head>
+  <title>Make your meteor apps crawlable | Tone</title>
+  <link rel="icon" href="/favicon.png" type="image/png" />
+</head>
+
+<template name="layout">
+  <section>
+    <div class="container">
+      {{ > yield }}
+    </div>
+  </section>
+</template>
+
+<template name="authLayout">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix-top">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+          </button>
+          <a class="navbar-brand" href="{{ pathFor route='Home' }}">
+            <img src="/images/logo.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="page-scroll {{ isActiveRoute class='active' name='Applications' }}">
+              <a href="{{ pathFor route='Applications' }}">Apps</a>
+            </li>
+            <li class="page-scroll">
+              <a href="{{ pathFor route='Caches' }}">Cached Pages</a>
+            </li>
+            <li class="page-scroll {{ isActiveRoute class='active' name='Histories' }}">
+              <a href="{{ pathFor route='Histories' }}">Histories</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+  <section>
+    <div class="container">
+      {{ > yield }}
+    </div>
+  </section>
+
+  <footer class="text-center">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-4">
+                    <h3>Location</h3>
+                    <p>3481 Melrose Place
+                        <br>Beverly Hills, CA 90210</p>
+                </div>
+                <div class="footer-col col-md-4">
+                  <h3>Around the Web</h3>
+                  <ul class="list-inline">
+                    <li>
+                      <a href="#" class="btn-social btn-outline">
+                        <span class="sr-only">Github</span><i class="fa fa-fw fa-github"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="btn-social btn-outline">
+                        <span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="footer-col col-md-4">
+                    <h3>About Freelancer</h3>
+                    <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright © Your Website 2016
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</template>
+
+<template name="home">
+  Home
+</template>
+
+<template name="livestampTmpl">
+  {{ livestamp createdAt }}
+</template>
+
+<template name="notFound">
+  Not found page.
+</template>
+
+<template name="loading">
+  loading...
+</template>

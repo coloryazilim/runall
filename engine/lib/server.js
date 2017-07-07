@@ -592,7 +592,7 @@ server._sendResponse = function(req, res, options) {
     mongo.then((db) => {
       return db.collection('histories').insert({
         createdAt: new Date(),
-        siteId: req.headers['x-prerender-token'],
+        applicationId: req.headers['x-prerender-token'],
         userAgent: req.headers['user-agent'],
         url: req.prerender.url,
         statusCode: req.prerender.statusCode,

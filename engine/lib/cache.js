@@ -28,7 +28,7 @@ module.exports = {
     afterPhantomRequest(req, res, next) {
       this.cache.set({
         url: req.prerender.url,
-        siteId: req.headers['x-prerender-token'],
+        applicationId: req.headers['x-prerender-token'],
         createdAt: req.prerender.start,
         ms: new Date().getTime() - req.prerender.start.getTime(),
         phantomId: req.prerender.phantomId,
@@ -67,7 +67,7 @@ var mongo_cache = {
 
     set(data, callback) {
       mongo.then((db) => {
-        db.collection('sites').findOne({ _id: data.siteId }).then((site) => {
+        db.collection('applications').findOne({ _id: data.applicationId }).then((site) => {
           if (site) {
             if (site.cache) {
               return db.collection('caches').update({ url: data.url }, data, { upsert: true });

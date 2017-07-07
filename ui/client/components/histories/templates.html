@@ -1,0 +1,7 @@
+<template name="histories">
+  {{# if Template.subscriptionsReady }}
+    {{> reactiveTable collection=histories settings=settings }}
+  {{ else }}
+    {{ > loading }}
+  {{/if}}
+</template>
